@@ -10,7 +10,7 @@ benötigen Sie:
 
 * nextcloud.example.com muss auf die IP-Adresse des Systems zeigen
 
-Um diesen Ausgangszustand herzustellen, ersetzen Sie in der Datei nextcloud.yml und static.yml jeweils nextcloud.example.com (kommt mehrfach vor) durch Ihren 
+Um diesen Ausgangszustand herzustellen, laden Sie das [tar-Archiv mit den Dateien herunter](https://github.com/psct/ctnextcloud/releases/download/v1/ctnextcloud.tar), entpacken Sie es und ersetzen Sie in der Datei nextcloud.yml und static.yml jeweils nextcloud.example.com (kommt mehrfach vor) durch Ihren 
 Host(-namen) und die E-Mail-Adresse ich@example.com in static.yml durch Ihre Adresse.
 
 Ändern Sie unbedingt auch das Passwort für den Nextcloud-Admin-Benutzer (ncadmin). Es ist vorbelegt als "12345678x!". Ändern Sie besser auch gleich noch den 

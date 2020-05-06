@@ -1,0 +1,35 @@
+entryPoints:
+  web:
+    address: ":80"
+  web-secure:
+    address: ":443"
+  
+providers:
+  docker:
+    watch: true
+    exposedByDefault: false
+  file:
+    directory: /etc/traefik/dynamic
+    watch: true
+    filename: dynamic.yml
+
+certificatesResolvers:
+  default:
+    acme:
+      email: ich@example.com
+      storage: /etc/traefik/acme/acme.json
+      httpChallenge:
+        entryPoint: web
+
+api:
+  insecure: true
+  dashboard: true
+
+log:
+  level: INFO
+
+accessLog:
+  filePath: /dev/stdout
+
+global:
+  sendAnonymousUsage: false

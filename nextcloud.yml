@@ -1,0 +1,66 @@
+version: "3.7"
+
+volumes:
+  nextcloud_root:
+  nextcloud_data:
+  nextcloud_config:
+  nextcloud_apps:
+  db_nextcloud:
+
+services:
+  traefik:
+    image: traefik:v2.1.7
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+      - ./static.yml:/etc/traefik/traefik.yml
+      - ./acme.json:/etc/traefik/acme/acme.json
+  db_nextcloud:
+    image: mysql:5
+    restart: always
+    volumes:
+      - db_nextcloud:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=geheim45
+      - MYSQL_ROOT_PASSWORD=geheim45geheim
+  nextcloud:
+    image: nextcloud:apache
+    restart: always
+    depends_on:
+      - db_nextcloud
+    volumes:
+      - nextcloud_root:/var/www/html
+      - nextcloud_data:/var/www/html/data
+      - nextcloud_config:/var/www/html/config
+      - nextcloud_apps:/var/www/html/apps
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    environment:
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=geheim45
+      - MYSQL_HOST=db_nextcloud
+      - NEXTCLOUD_ADMIN_USER=ncadmin
+      - NEXTCLOUD_ADMIN_PASSWORD=12345678x!
+      - NEXTCLOUD_TRUSTED_DOMAINS="nextcloud.example.com"
+      - OVERWRITEPROTOCOL=https
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nextcloud.rule=Host(`nextcloud.example.com`)"
+      - "traefik.http.routers.nextcloud.entrypoints=web"
+      - "traefik.http.routers.nextcloud.middlewares=redirect-to-https@docker"
+      - "traefik.http.middlewares.redirect-to-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.nextcloud-secure.rule=Host(`nextcloud.example.com`)"
+      - "traefik.http.routers.nextcloud-secure.entrypoints=web-secure"
+      - "traefik.http.routers.nextcloud-secure.tls.certResolver=default"
+      - "traefik.http.routers.nextcloud-secure.tls=true"
+      - "traefik.http.routers.nextcloud-secure.middlewares=nextcloudheaders@docker,nextcloud-dav@docker"
+      - "traefik.http.middlewares.nextcloudheaders.headers.customRequestHeaders.X-Forwarded-Proto=https"
+      - "traefik.http.middlewares.nextcloudheaders.headers.accessControlAllowOrigin=*"
+      - "traefik.http.middlewares.nextcloud-dav.replacepathregex.regex=^/.well-known/ca(l|rd)dav"
+      - "traefik.http.middlewares.nextcloud-dav.replacepathregex.replacement=/remote.php/dav/"

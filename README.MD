@@ -16,7 +16,7 @@ Host(-namen) und die E-Mail-Adresse ich@example.com in static.yml durch Ihre Adr
 Ändern Sie unbedingt auch das Passwort für den Nextcloud-Admin-Benutzer (ncadmin). Es ist vorbelegt als "12345678x!". Ändern Sie besser auch gleich noch den 
 Namen dieses Benutzers auf einen für Sie passenden.
 
-Die Datei acme.json braucht exakt die im tar-Archiv enthaltenen Zugriffsrechte (chmod 600), sonst verarbeitet Traffic sie nicht. Hierin laden schließlich die 
+Die Datei acme.json braucht exakt die im tar-Archiv enthaltenen Zugriffsrechte (chmod 600), sonst verarbeitet Traefik sie nicht. Hierin laden schließlich die 
 Zertifikatsinformationen.
 
 Starten Sie anschließend mit `docker-compose -f ./ctnextcloud.yml up -d ` Traefik, Nextcloud und die zugehörige Datenbank.

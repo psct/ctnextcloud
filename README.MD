@@ -19,7 +19,7 @@ Namen dieses Benutzers auf einen für Sie passenden.
 Die Datei acme.json braucht exakt die im tar-Archiv enthaltenen Zugriffsrechte (chmod 600), sonst verarbeitet Traefik sie nicht. Hierin laden schließlich die 
 Zertifikatsinformationen.
 
-Starten Sie anschließend mit `docker-compose -f ./ctnextcloud.yml up -d ` Traefik, Nextcloud und die zugehörige Datenbank.
+Starten Sie anschließend mit `docker-compose -f ./nextcloud.yml up -d ` Traefik, Nextcloud und die zugehörige Datenbank.
 
 Wenn Docker alle Images heruntergeladen und gestartet hat, sollten Sie nach einiger Zeit in eine Web-Browser unter Ihrem Host- und Domain-Namen die frische 
 Nextcloud-Installation erreichen können.

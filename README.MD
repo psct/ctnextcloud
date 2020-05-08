@@ -1,5 +1,5 @@
 
-Dieses Projektchen ergänzt einen [Artikel zu Nextcloud aus c’t 11/2020](https://www.heise.de/select/ct/2020/11). Für die Inbetriebnahme der Nextcloud-Umgebung 
+Dieses Projektchen ergänzt einen [Artikel zu Nextcloud aus c’t 11/2020](https://www.heise.de/select/ct/2020/11/2002714292424531451). Für die Inbetriebnahme der Nextcloud-Umgebung 
 benötigen Sie:
 
 * ein System mit Docker und docker-compose
